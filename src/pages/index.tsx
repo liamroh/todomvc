@@ -37,8 +37,12 @@ export default function Home() {
         setTodos((prev) => prev.filter((t) => t.id !== id));
     };
 
-    const handleToggleComplete = () => {
-        console.log("onToggleComplete was called");
+    const handleToggleComplete = (id: number) => {
+        setTodos((prev) =>
+            prev.map((t) =>
+                t.id === id ? { ...t, completed: !t.completed } : t
+            )
+        );
     };
 
     const handleSetTitle = (id: number, title: string) => {
