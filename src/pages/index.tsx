@@ -53,12 +53,12 @@ export default function Home() {
         );
     };
 
-    const onMarkAllActive = () => {
-        console.log("onMarkAllActive was called");
+    const handleMarkAllActive = () => {
+        setTodos((prev) => prev.map((t) => ({ ...t, completed: false })));
     };
 
-    const onMarkAllCompleted = () => {
-        console.log("onMarkAllCompleted was called");
+    const handleMarkAllCompleted = () => {
+        setTodos((prev) => prev.map((t) => ({ ...t, completed: true })));
     };
 
     const onClearCompleted = () => {
@@ -84,8 +84,8 @@ export default function Home() {
                     <TodoMarkAll
                         numCompletedTodos={numCompletedTodos}
                         numTodos={todos.length}
-                        onMarkAllActive={onMarkAllActive}
-                        onMarkAllCompleted={onMarkAllCompleted}
+                        onMarkAllActive={handleMarkAllActive}
+                        onMarkAllCompleted={handleMarkAllCompleted}
                     />
                     <TodoList
                         todos={todos}
