@@ -24,8 +24,13 @@ export default function Home() {
         setNextId((prev) => prev + 1);
     };
 
-    const handleEdit = () => {
-        console.log("onEdit was called");
+    const handleEdit = (id: number) => {
+        setTodos((prev) =>
+            prev.map((t) => ({
+                ...t,
+                editing: t.id === id,
+            }))
+        );
     };
 
     const handleDelete = () => {
@@ -36,8 +41,12 @@ export default function Home() {
         console.log("onToggleComplete was called");
     };
 
-    const handleSetTitle = () => {
-        console.log("onSetTitle was called");
+    const handleSetTitle = (id: number, title: string) => {
+        setTodos((prev) =>
+            prev.map((t) =>
+                t.id === id ? { ...t, title, editing: false } : t
+            )
+        );
     };
 
     const onMarkAllActive = () => {
@@ -69,8 +78,8 @@ export default function Home() {
 
                 <section className="main">
                     <TodoMarkAll
-                        numCompletedTodos={0}
-                        numTodos={0}
+                        numCompletedTodos={numCompletedTodos}
+                        numTodos={todos.length}
                         onMarkAllActive={onMarkAllActive}
                         onMarkAllCompleted={onMarkAllCompleted}
                     />
