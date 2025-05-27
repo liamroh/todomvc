@@ -33,8 +33,8 @@ export default function Home() {
         );
     };
 
-    const handleDelete = () => {
-        console.log("onDelete was called");
+    const handleDelete = (id: number) => {
+        setTodos((prev) => prev.filter((t) => t.id !== id));
     };
 
     const handleToggleComplete = () => {
