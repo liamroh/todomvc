@@ -61,8 +61,8 @@ export default function Home() {
         setTodos((prev) => prev.map((t) => ({ ...t, completed: true })));
     };
 
-    const onClearCompleted = () => {
-        console.log("onClearCompleted was called");
+    const handleClearCompleted = () => {
+        setTodos((prev) => prev.filter((t) => !t.completed));
     };
 
     const numCompletedTodos = todos.filter((t) => t.completed).length;
@@ -100,7 +100,7 @@ export default function Home() {
                     filter="all"
                     numActiveTodos={numActiveTodos}
                     numTodos={todos.length}
-                    onClearCompleted={onClearCompleted}
+                    onClearCompleted={handleClearCompleted}
                 />
             </section>
 
