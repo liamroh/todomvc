@@ -4,6 +4,7 @@ import { Filter } from "src/models/filter";
 
 type Props = {
     filter: Filter;
+    setFilter: (filter: Filter) => void;
     numActiveTodos: number;
     numTodos: number;
     onClearCompleted: () => void;
@@ -11,6 +12,7 @@ type Props = {
 
 export default function TodoFooter({
     filter,
+    setFilter,
     numActiveTodos,
     numTodos,
     onClearCompleted,
@@ -31,6 +33,7 @@ export default function TodoFooter({
                             className={clsx({
                                 selected: filter == "all",
                             })}
+                            onClick={() => setFilter("all")}
                         >
                             All
                         </a>
@@ -38,7 +41,12 @@ export default function TodoFooter({
                 </li>
                 <li>
                     <Link href="/#/active">
-                        <a className={clsx({ selected: filter === "active" })}>
+                        <a 
+                            className={clsx({ 
+                                selected: filter === "active",
+                            })}
+                            onClick={() => setFilter("active")}
+                            >
                             Active
                         </a>
                     </Link>
@@ -46,9 +54,8 @@ export default function TodoFooter({
                 <li>
                     <Link href="/#/completed">
                         <a
-                            className={clsx({
-                                selected: filter === "completed",
-                            })}
+                            className={clsx({ selected: filter === "completed" })}
+                            onClick={() => setFilter("completed")}
                         >
                             Completed
                         </a>
