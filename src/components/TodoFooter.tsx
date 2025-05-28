@@ -8,6 +8,10 @@ type Props = {
     numActiveTodos: number;
     numTodos: number;
     onClearCompleted: () => void;
+    onUndo: () => void;
+    onRedo: () => void;
+    canUndo: boolean;
+    canRedo: boolean;
 };
 
 export default function TodoFooter({
@@ -16,57 +20,75 @@ export default function TodoFooter({
     numActiveTodos,
     numTodos,
     onClearCompleted,
+    onUndo,
+    onRedo,
+    canUndo,
+    canRedo,
 }: Props) {
     if (numTodos == 0) {
         return null;
     }
 
     return (
-        <footer className="footer">
-            <span className="todo-count">
-                {numActiveTodos} item{numActiveTodos !== 1 && "s"} left
-            </span>
-            <ul className="filters">
-                <li>
-                    <Link href="/#/">
-                        <a
-                            className={clsx({
-                                selected: filter == "all",
-                            })}
-                            onClick={() => setFilter("all")}
-                        >
-                            All
-                        </a>
-                    </Link>
-                </li>
-                <li>
-                    <Link href="/#/active">
-                        <a 
-                            className={clsx({ 
-                                selected: filter === "active",
-                            })}
-                            onClick={() => setFilter("active")}
+        <>
+            <footer className="footer">
+                <span className="todo-count">
+                    {numActiveTodos} item{numActiveTodos !== 1 && "s"} left
+                </span>
+                <ul className="filters">
+                    <li>
+                        <Link href="/#/">
+                            <a
+                                className={clsx({
+                                    selected: filter == "all",
+                                })}
+                                onClick={() => setFilter("all")}
                             >
-                            Active
-                        </a>
-                    </Link>
-                </li>
-                <li>
-                    <Link href="/#/completed">
-                        <a
-                            className={clsx({ selected: filter === "completed" })}
-                            onClick={() => setFilter("completed")}
-                        >
-                            Completed
-                        </a>
-                    </Link>
-                </li>
-            </ul>
-            {numActiveTodos < numTodos && (
-                <button className="clear-completed" onClick={onClearCompleted}>
-                    Clear completed
-                </button>
-            )}
-        </footer>
+                                All
+                            </a>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/#/active">
+                            <a 
+                                className={clsx({ 
+                                    selected: filter === "active",
+                                })}
+                                onClick={() => setFilter("active")}
+                                >
+                                Active
+                            </a>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/#/completed">
+                            <a
+                                className={clsx({ selected: filter === "completed" })}
+                                onClick={() => setFilter("completed")}
+                            >
+                                Completed
+                            </a>
+                        </Link>
+                    </li>
+                </ul>
+                {numActiveTodos < numTodos && (
+                    <button className="clear-completed" onClick={onClearCompleted}>
+                        Clear completed
+                    </button>
+                )}
+            </footer>
+            <div className="undo-redo">
+                {canUndo && (
+                    <button className="button" onClick={onUndo}>
+                        Undo
+                    </button>
+                )}
+                {canRedo && (
+                    <button className="button" onClick={onRedo}>
+                        Redo
+                    </button>
+                )}
+            </div>
+        </>
     );
 }
